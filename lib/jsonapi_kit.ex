@@ -1,0 +1,2 @@
+defmodule JsonapiKit do
+end
