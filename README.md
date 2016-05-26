@@ -156,7 +156,7 @@ end
 
 **Endpoint:**
 
-```
+```elixir
 def show(conn, _) do
   # Transform params key with the right format
   conn = %{conn | params: JsonapiKit.DataTransform.decode(conn.params)}
@@ -177,7 +177,7 @@ end
 
 **Response:**
 
-```
+```json
 {
   "included": [
     {
