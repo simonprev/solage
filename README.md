@@ -191,6 +191,7 @@ end
       "relationships": {
         "author": "my-author-id"
       }
+    }
   ]
 }
 ```
