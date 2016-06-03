@@ -50,7 +50,7 @@ defmodule JsonapiKit.Serializer do
   Endpoint:
   ```
   def show(conn, _) do
-    data = JsonapiKit.Serializer.data(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+    data = JsonapiKit.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
     included = JsonapiKit.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
 
     json(conn, 200, %{data: data, included: included})
@@ -84,11 +84,12 @@ defmodule JsonapiKit.Serializer do
   @doc """
   Proxy for the render call on the view module.
   """
-  @spec data(atom, serializable, config, optional_conn) :: list
-  def data(view, data, config, conn \\ nil)
-  def data(view, data, config, conn) when is_map(data), do: [view.render(data, config, conn)]
-  def data(view, data, config, conn) when is_list(data) do
-    Enum.map(data, &(data(view, &1, config, conn)))
+  @spec render(atom, serializable, config, optional_conn) :: list
+  def render(view, data, config, conn \\ nil)
+  def render(view, data, config, conn) when is_map(data), do: [view.render(data, config, conn)]
+  def render(view, data, config, conn) when is_list(data) do
+    data
+    |> Enum.map(&(render(view, &1, config, conn)))
     |> List.flatten
   end
 
@@ -100,15 +101,18 @@ defmodule JsonapiKit.Serializer do
   """
   @spec included(atom, serializable, config, optional_conn) :: list
   def included(view, data, config, conn \\ nil) do
-    Enum.reduce(config.include, MapSet.new, fn(include, acc) ->
-      handle_include(view, data, include, config, conn)
+    config.include
+    |> Enum.reduce(MapSet.new, fn(include, acc) ->
+      view
+      |> handle_include(data, include, config, conn)
       |> Enum.reduce(acc, &(MapSet.put(&2, &1)))
     end)
     |> MapSet.to_list
   end
 
   defp handle_include(view, data, include, config, conn) when is_list(data) do
-    Enum.map(data, &(handle_include(view, &1, include, config, conn)))
+    data
+    |> Enum.map(&(handle_include(view, &1, include, config, conn)))
     |> List.flatten
   end
 
@@ -121,7 +125,7 @@ defmodule JsonapiKit.Serializer do
   defp handle_include(view, data, attribute, config, conn) do
     {new_data, new_view} = get_data_view(view, data, attribute)
 
-    data(new_view, new_data, config, conn)
+    render(new_view, new_data, config, conn)
   end
 
   defp get_data_view(view, data, attribute) do

@@ -8,7 +8,7 @@ defmodule JsonapiKit.SerializerTest do
 
   test "data" do
     config = %JsonapiKit.QueryConfig{}
-    data = JsonapiKit.Serializer.data(IdView, %{id: "post"}, config)
+    data = JsonapiKit.Serializer.render(IdView, %{id: "post"}, config)
 
     assert data == ["post"]
   end

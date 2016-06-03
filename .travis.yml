@@ -10,5 +10,4 @@ otp_release:
 
 script:
   - mix credo
-  - mix dialyzer.plt && mix dialyzer
   - mix test

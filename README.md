@@ -66,7 +66,7 @@ To obtain the relation view of an included resource, you will need to implement 
 
 **2 functions**
 
-- `data/4` Render the representation of a resource. It’s just a proxy for `view.render(data, query_config, conn)`
+- `render/4` Render the representation of a resource. It’s just a proxy for `view.render(data, query_config, conn)`
 - `included/4` With the QueryConfig, parse the data and call `data/4` on each resource. Takes all the rendered resources and put them in a list.
 
 ## JsonapiKit.DataTransform
@@ -156,7 +156,7 @@ def show(conn, _) do
   conn = %{conn | params: JsonapiKit.DataTransform.decode(conn.params)}
 
   # Render the data value
-  data = JsonapiKit.Serializer.data(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+  data = JsonapiKit.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
 
   # Render the included value
   included = JsonapiKit.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
