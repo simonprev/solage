@@ -1,5 +1,7 @@
 # JsonapiKit
 
+[![Travis](https://travis-ci.org/simonprev/jsonapi_kit.svg?style=flat-square)](https://travis-ci.org/simonprev/jsonapi_kit)
+
 Provides basic functionality to implement a [JSON API](http://jsonapi.org) compliant API.
 
 * [Installation](#installation)
