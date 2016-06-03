@@ -1,4 +1,9 @@
 defmodule JsonapiKit.DataTransform.Utils do
+  @moduledoc """
+  Takes the decode_formatter and encode_formatter from the application’s config
+  and exposes functions to decode and encode a string.
+  """
+
   @decode_formatter Application.get_env(:jsonapi_kit, :decode_formatter, :dasherized)
   @encode_formatter Application.get_env(:jsonapi_kit, :encode_formatter, :dasherized)
 

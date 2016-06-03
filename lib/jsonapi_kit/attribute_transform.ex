@@ -29,6 +29,9 @@ defmodule JsonapiKit.AttributeTransform do
 
   ```
   """
+
+  alias JsonapiKit.AttributeTransform.Simple, as: SimpleTransformer
+
   @transformer Application.get_env(:jsonapi_kit, :attribute_transformer, :simple)
 
   @spec decode(any) :: map | list
@@ -54,8 +57,9 @@ defmodule JsonapiKit.AttributeTransform do
 
   defp decode_section(section, attributes) do
     case @transformer do
-      :simple -> JsonapiKit.AttributeTransform.Simple.decode(section, attributes)
-      module when is_atom(module) -> apply(module, :decode, [section, attributes])
+      :simple -> SimpleTransformer.decode(section, attributes)
+      module when is_atom(module) ->
+        apply(module, :decode, [section, attributes])
       _ -> %{section => attributes}
     end
   end

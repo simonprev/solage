@@ -77,9 +77,12 @@ defmodule JsonapiKit.Serializer do
   ```
   """
 
+  alias JsonapiKit.QueryConfig
+  alias Plug.Conn
+
   @typep serializable :: list | map
-  @typep config :: JsonapiKit.QueryConfig.t
-  @typep optional_conn :: Plug.Conn.t | nil
+  @typep config :: QueryConfig.t
+  @typep optional_conn :: Conn.t | nil
 
   @doc """
   Proxy for the render call on the view module.

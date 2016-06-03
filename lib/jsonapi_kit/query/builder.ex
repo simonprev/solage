@@ -8,5 +8,7 @@ defmodule JsonapiKit.QueryBuilder do
 
   @typep param :: String.t | map | list
 
-  @callback build(param, JsonapiKit.QueryConfig.t) :: any
+  alias JsonapiKit.QueryConfig
+
+  @callback build(param, QueryConfig.t) :: any
 end
