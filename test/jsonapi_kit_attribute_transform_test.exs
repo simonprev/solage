@@ -1,6 +1,6 @@
-defmodule JsonapiKitAttributeTransformTest do
+defmodule SolageAttributeTransformTest do
   use ExUnit.Case
-  doctest JsonapiKit.AttributeTransform
+  doctest Solage.AttributeTransform
 
   defmodule DefaultTest do
     use ExUnit.Case
@@ -13,7 +13,7 @@ defmodule JsonapiKitAttributeTransformTest do
         }
       }
 
-      assert %{"post" => %{"name" => "Testy"}} == JsonapiKit.AttributeTransform.decode(params)
+      assert %{"post" => %{"name" => "Testy"}} == Solage.AttributeTransform.decode(params)
     end
 
     test "relationship belongs_to" do
@@ -28,7 +28,7 @@ defmodule JsonapiKitAttributeTransformTest do
         }
       }
 
-      assert %{"post" => %{"user_id" => "1"}} == JsonapiKit.AttributeTransform.decode(params)
+      assert %{"post" => %{"user_id" => "1"}} == Solage.AttributeTransform.decode(params)
     end
 
     test "relationship has_many" do
@@ -43,7 +43,7 @@ defmodule JsonapiKitAttributeTransformTest do
         }
       }
 
-      assert %{"post" => %{"user_ids" => ["1"]}} == JsonapiKit.AttributeTransform.decode(params)
+      assert %{"post" => %{"user_ids" => ["1"]}} == Solage.AttributeTransform.decode(params)
     end
   end
 end

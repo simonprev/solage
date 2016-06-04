@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QueryBuilder do
+defmodule Solage.QueryBuilder do
   @moduledoc """
   Simple behaviour for module building a data structure from an HTTP handler param.
 
@@ -8,7 +8,7 @@ defmodule JsonapiKit.QueryBuilder do
 
   @typep param :: String.t | map | list
 
-  alias JsonapiKit.QueryConfig
+  alias Solage.QueryConfig
 
   @callback build(param, QueryConfig.t) :: any
 end

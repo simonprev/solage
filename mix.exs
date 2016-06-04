@@ -2,7 +2,7 @@ defmodule JsonapiKit.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :jsonapi_kit,
+    [app: :solage,
      version: "0.0.1",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
@@ -10,7 +10,7 @@ defmodule JsonapiKit.Mixfile do
      dialyzer: [plt_add_apps: [:plug]],
      deps: deps,
      docs: [extras: ["README.md"], main: "readme",
-       source_url: "https://github.com/simonprev/jsonapi_kit"]
+       source_url: "https://github.com/simonprev/solage"]
    ]
   end
 

@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QueryIncludeBuilder do
+defmodule Solage.QueryIncludeBuilder do
   @moduledoc """
   Parse the `include` param to return a sane representation of all the includes.
 
@@ -15,21 +15,21 @@ defmodule JsonapiKit.QueryIncludeBuilder do
 
   ```
   # With allowed includes option
-  iex> JsonapiKit.QueryIncludeBuilder.build("user,post", %JsonapiKit.QueryConfig{options: [allowed_includes: ~w(user)]})
+  iex> Solage.QueryIncludeBuilder.build("user,post", %Solage.QueryConfig{options: [allowed_includes: ~w(user)]})
   [:user]
 
   # With always includes option
-  iex> JsonapiKit.QueryIncludeBuilder.build("user", %JsonapiKit.QueryConfig{options: [always_includes: ~w(post)]})
+  iex> Solage.QueryIncludeBuilder.build("user", %Solage.QueryConfig{options: [always_includes: ~w(post)]})
   [:user, :post]
 
   # Nested results
-  iex> JsonapiKit.QueryIncludeBuilder.build("user,user.post", %JsonapiKit.QueryConfig{})
+  iex> Solage.QueryIncludeBuilder.build("user,user.post", %Solage.QueryConfig{})
   [:user, {:user, :post}]
 
   ```
   """
 
-  @behaviour JsonapiKit.QueryBuilder
+  @behaviour Solage.QueryBuilder
 
   @include_separator ","
   @nested_separator "."

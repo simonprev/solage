@@ -1,4 +1,4 @@
-defmodule JsonapiKit.AttributeTransform do
+defmodule Solage.AttributeTransform do
   @moduledoc """
   Transforms JSON API compliant data from a client to a useful data structure.
 
@@ -7,7 +7,7 @@ defmodule JsonapiKit.AttributeTransform do
   ## Example
 
   ```
-  iex> JsonapiKit.AttributeTransform.decode(%{
+  iex> Solage.AttributeTransform.decode(%{
   ...>   "type" => "post",
   ...>   "attributes" => %{
   ...>     "name" => "Testy"
@@ -30,9 +30,9 @@ defmodule JsonapiKit.AttributeTransform do
   ```
   """
 
-  alias JsonapiKit.AttributeTransform.Simple, as: SimpleTransformer
+  alias Solage.AttributeTransform.Simple, as: SimpleTransformer
 
-  @transformer Application.get_env(:jsonapi_kit, :attribute_transformer, :simple)
+  @transformer Application.get_env(:solage, :attribute_transformer, :simple)
 
   @spec decode(any) :: map | list
   def decode(data) when is_list(data), do: Enum.map(data, &decode/1)

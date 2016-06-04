@@ -1,4 +1,4 @@
-defmodule JsonapiKitQueryFieldsBuilderTest do
+defmodule SolageQueryFieldsBuilderTest do
   use ExUnit.Case
-  doctest JsonapiKit.QueryFieldsBuilder
+  doctest Solage.QueryFieldsBuilder
 end

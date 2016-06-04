@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QueryFilterBuilder do
+defmodule Solage.QueryFilterBuilder do
   @moduledoc """
   Parse the `filter` param to return a map.
 
@@ -8,17 +8,17 @@ defmodule JsonapiKit.QueryFilterBuilder do
 
   ```
   # With no options
-  iex> JsonapiKit.QueryFilterBuilder.build(%{"user_id" => "1"}, %JsonapiKit.QueryConfig{})
+  iex> Solage.QueryFilterBuilder.build(%{"user_id" => "1"}, %Solage.QueryConfig{})
   %{"user_id" => "1"}
 
   # With allowed filters
-  iex> JsonapiKit.QueryFilterBuilder.build(%{"user_id" => "1", "password" => "test"}, %JsonapiKit.QueryConfig{options: [allowed_filters: ~w(user_id)]})
+  iex> Solage.QueryFilterBuilder.build(%{"user_id" => "1", "password" => "test"}, %Solage.QueryConfig{options: [allowed_filters: ~w(user_id)]})
   %{"user_id" => "1"}
 
   ```
   """
 
-  @behaviour JsonapiKit.QueryBuilder
+  @behaviour Solage.QueryBuilder
 
   def build(param, _config) when not is_map(param), do: %{}
   def build(param, config) do

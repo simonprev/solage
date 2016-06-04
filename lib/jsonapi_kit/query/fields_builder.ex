@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QueryFieldsBuilder do
+defmodule Solage.QueryFieldsBuilder do
   @moduledoc """
   Parse the `fields` param to return a sane representation of all the available fields.
 
@@ -17,17 +17,17 @@ defmodule JsonapiKit.QueryFieldsBuilder do
 
   ```
   # With no options
-  iex> JsonapiKit.QueryFieldsBuilder.build(%{"user" => "id,name"}, %JsonapiKit.QueryConfig{})
+  iex> Solage.QueryFieldsBuilder.build(%{"user" => "id,name"}, %Solage.QueryConfig{})
   %{"user" => ["id", "name"]}
 
   # With allowed fields option
-  iex> JsonapiKit.QueryFieldsBuilder.build(%{"user" => "id,name,password"}, %JsonapiKit.QueryConfig{options: [allowed_fields: %{"user" => ~w(id name email)}]})
+  iex> Solage.QueryFieldsBuilder.build(%{"user" => "id,name,password"}, %Solage.QueryConfig{options: [allowed_fields: %{"user" => ~w(id name email)}]})
   %{"user" => ["id", "name"]}
 
   ```
   """
 
-  @behaviour JsonapiKit.QueryBuilder
+  @behaviour Solage.QueryBuilder
 
   @field_separator ","
 

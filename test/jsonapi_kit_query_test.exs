@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QueryTest do
+defmodule Solage.QueryTest do
   use ExUnit.Case
   use Plug.Test
 
@@ -8,7 +8,7 @@ defmodule JsonapiKit.QueryTest do
 
     %Plug.Conn{assigns: %{jsonapi_query: query}} = conn(:get, "/foo?#{params}")
     |> Plug.Conn.fetch_query_params
-    |> JsonapiKit.Query.call(JsonapiKit.Query.init(opts))
+    |> Solage.Query.call(Solage.Query.init(opts))
 
     assert query.filter == %{"user" => "12"}
     assert query.sort == [desc: :inserted_at]
@@ -21,7 +21,7 @@ defmodule JsonapiKit.QueryTest do
 
     %Plug.Conn{assigns: %{jsonapi_query: query}} = conn(:get, "/foo?#{params}")
     |> Plug.Conn.fetch_query_params
-    |> JsonapiKit.Query.call(JsonapiKit.Query.init(opts))
+    |> Solage.Query.call(Solage.Query.init(opts))
 
     assert query.filter == %{"user" => "12"}
     assert query.sort == []

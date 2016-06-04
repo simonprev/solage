@@ -1,4 +1,4 @@
-defmodule JsonapiKit.Serializer do
+defmodule Solage.Serializer do
   @moduledoc """
   Everything needed to serialize data and includes.
 
@@ -50,8 +50,8 @@ defmodule JsonapiKit.Serializer do
   Endpoint:
   ```
   def show(conn, _) do
-    data = JsonapiKit.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
-    included = JsonapiKit.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+    data = Solage.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+    included = Solage.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
 
     json(conn, 200, %{data: data, included: included})
   end
@@ -77,7 +77,7 @@ defmodule JsonapiKit.Serializer do
   ```
   """
 
-  alias JsonapiKit.QueryConfig
+  alias Solage.QueryConfig
   alias Plug.Conn
 
   @typep serializable :: list | map
@@ -97,7 +97,7 @@ defmodule JsonapiKit.Serializer do
   end
 
   @doc """
-  Recursively get include data from the JsonapiKit.QueryConfig `include` option.
+  Recursively get include data from the Solage.QueryConfig `include` option.
 
   If you’re using Ecto as the data, you will need the preload the assocations present
   in the `include` option.

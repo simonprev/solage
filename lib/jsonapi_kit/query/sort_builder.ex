@@ -1,4 +1,4 @@
-defmodule JsonapiKit.QuerySortBuilder do
+defmodule Solage.QuerySortBuilder do
   @moduledoc """
   Parse the `sort` param to return a sane representation of all the sort.
 
@@ -15,17 +15,17 @@ defmodule JsonapiKit.QuerySortBuilder do
 
   ```
   # With no options
-  iex> JsonapiKit.QuerySortBuilder.build("inserted_at,description", %JsonapiKit.QueryConfig{})
+  iex> Solage.QuerySortBuilder.build("inserted_at,description", %Solage.QueryConfig{})
   [asc: :inserted_at, asc: :description]
 
   # With allowed sort option
-  iex> JsonapiKit.QuerySortBuilder.build("inserted_at,description", %JsonapiKit.QueryConfig{options: [allowed_sort: ~w(description)]})
+  iex> Solage.QuerySortBuilder.build("inserted_at,description", %Solage.QueryConfig{options: [allowed_sort: ~w(description)]})
   [asc: :description]
 
   ```
   """
 
-  @behaviour JsonapiKit.QueryBuilder
+  @behaviour Solage.QueryBuilder
 
   @sort_separator ","
 

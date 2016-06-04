@@ -1,5 +1,5 @@
-defmodule JsonapiKit do
+defmodule Solage do
   @moduledoc """
-  Main module for all JsonapiKit functionality
+  Main module for all Solage functionality
   """
 end

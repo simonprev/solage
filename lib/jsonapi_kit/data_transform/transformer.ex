@@ -1,4 +1,4 @@
-defmodule JsonapiKit.DataTransform.Transformer do
+defmodule Solage.DataTransform.Transformer do
   @moduledoc """
   Behaviour declaration of `DataTransform` modules used in `DataTransform.Utils`.
   """

@@ -1,19 +1,19 @@
-defmodule JsonapiKitDataTransformTest do
+defmodule SolageDataTransformTest do
   defmodule DecodeTest do
     use ExUnit.Case
 
     test "any" do
-      assert 1 == JsonapiKit.DataTransform.decode(1)
-      assert :hello == JsonapiKit.DataTransform.decode(:hello)
+      assert 1 == Solage.DataTransform.decode(1)
+      assert :hello == Solage.DataTransform.decode(:hello)
     end
 
     test "list" do
-      assert [1, 2, 3] == JsonapiKit.DataTransform.decode([1,2,3])
-      assert ["hello-test"] == JsonapiKit.DataTransform.decode(["hello-test"])
+      assert [1, 2, 3] == Solage.DataTransform.decode([1,2,3])
+      assert ["hello-test"] == Solage.DataTransform.decode(["hello-test"])
     end
 
     test "map" do
-      assert %{"hello_test" => "ok-go"} == JsonapiKit.DataTransform.decode(%{"hello-test" => "ok-go"})
+      assert %{"hello_test" => "ok-go"} == Solage.DataTransform.decode(%{"hello-test" => "ok-go"})
     end
   end
 
@@ -21,17 +21,17 @@ defmodule JsonapiKitDataTransformTest do
     use ExUnit.Case
 
     test "any" do
-      assert 1 == JsonapiKit.DataTransform.encode(1)
-      assert :hello == JsonapiKit.DataTransform.encode(:hello)
+      assert 1 == Solage.DataTransform.encode(1)
+      assert :hello == Solage.DataTransform.encode(:hello)
     end
 
     test "list" do
-      assert [1, 2, 3] == JsonapiKit.DataTransform.encode([1,2,3])
-      assert ["hello-test"] == JsonapiKit.DataTransform.encode(["hello-test"])
+      assert [1, 2, 3] == Solage.DataTransform.encode([1,2,3])
+      assert ["hello-test"] == Solage.DataTransform.encode(["hello-test"])
     end
 
     test "map" do
-      assert %{"hello-test" => "ok-go"} == JsonapiKit.DataTransform.encode(%{"hello_test" => "ok-go"})
+      assert %{"hello-test" => "ok-go"} == Solage.DataTransform.encode(%{"hello_test" => "ok-go"})
     end
   end
 end

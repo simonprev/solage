@@ -1,10 +1,10 @@
-defmodule JsonapiKit.AttributeTransform.Simple do
+defmodule Solage.AttributeTransform.Simple do
   @moduledoc """
-  Full of assumptions but ok to get the job done. Referer to JsonapiKit.AttributeTransform module doc
+  Full of assumptions but ok to get the job done. Referer to Solage.AttributeTransform module doc
   to see examples of this implementation.
   """
 
-  @behaviour JsonapiKit.AttributeTransform.Transformer
+  @behaviour Solage.AttributeTransform.Transformer
 
   def decode("attributes", attributes) when is_map(attributes), do: attributes
   def decode("relationships", relationships) when is_map(relationships) do

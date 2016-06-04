@@ -1,4 +1,4 @@
-defmodule JsonapiKit.AttributeTransform.Transformer do
+defmodule Solage.AttributeTransform.Transformer do
   @moduledoc """
   Behaviour declaration of `AttributeTransform` modules used in `AttributeTransform` main module.
   """

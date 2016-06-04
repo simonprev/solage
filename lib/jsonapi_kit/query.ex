@@ -1,4 +1,4 @@
-defmodule JsonapiKit.Query do
+defmodule Solage.Query do
   @moduledoc """
   Using the available builders, fill the config with the parsed values.
 
@@ -15,7 +15,7 @@ defmodule JsonapiKit.Query do
 
   use Plug.Builder
 
-  alias JsonapiKit.{
+  alias Solage.{
     QueryIncludeBuilder,
     QuerySortBuilder,
     QueryFilterBuilder,
@@ -29,7 +29,7 @@ defmodule JsonapiKit.Query do
 
   def call(conn, opts) do
     conn
-    |> assign(:jsonapi_query, %JsonapiKit.QueryConfig{options: opts})
+    |> assign(:jsonapi_query, %Solage.QueryConfig{options: opts})
     |> super([])
   end
 

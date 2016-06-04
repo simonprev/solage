@@ -1,26 +1,26 @@
-# JsonapiKit
+# Solage
 
-[![Travis](https://travis-ci.org/simonprev/jsonapi_kit.svg?style=flat-square)](https://travis-ci.org/simonprev/jsonapi_kit)
+[![Travis](https://travis-ci.org/simonprev/solage.svg?style=flat-square)](https://travis-ci.org/simonprev/solage)
 
 Provides basic functionalities to implement a JSONAPI (like [jsonapi.org](http://jsonapi.org)) compliant API.
 
 * [Installation](#installation)
 * [Why?](#why-)
 * [Description](#description)
-    - [QueryConfig](#jsonapikit-queryconfig)
-    - [Serializer](#jsonapikit-serializer)
-    - [DataTransform](#jsonapikit-datatransform)
-    - [AttributeTransform](#jsonapikit-attributetransform)
+    - [QueryConfig](#solage-queryconfig)
+    - [Serializer](#solage-serializer)
+    - [DataTransform](#solage-datatransform)
+    - [AttributeTransform](#solage-attributetransform)
 * [Examples](#examples)
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
-  1. Add jsonapi_kit to your list of dependencies in `mix.exs`:
+  1. Add solage to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:jsonapi_kit, "~> 0.0.1"}]
+          [{:solage, "~> 0.0.1"}]
         end
 
 ## Why?
@@ -47,10 +47,10 @@ attaching the whole [jsonapi.org](http://jsonapi.org) standard in front of it. T
 - Want to implement sparse fields on a certain view? With the `render/3`, you have all the tools to implement this kind of thing.
 - Want to embed a certain assocation on the object data? You get the point.
 
-## JsonapiKit.QueryConfig
+## Solage.QueryConfig
 
 By using the `QueryConfig`, you don’t have to hardcode data behaviour right in the view. It’s up to who
-is rendering the view to use a config that fits your need. The config can be initialized with the `JsonapiKit.Query` plug.
+is rendering the view to use a config that fits your need. The config can be initialized with the `Solage.Query` plug.
 
 ### What’s inside QueryConfig
 
@@ -59,7 +59,7 @@ is rendering the view to use a config that fits your need. The config can be ini
 - `filter`: Map that can be filtered like the above options.
 - `fields`: Map that contains fields that need to be in the resource data.
 
-## JsonapiKit.Serializer
+## Solage.Serializer
 
 Use the `Serializer` to render the `data` and `included` section of the JSON API. You only need a view that implements `render/3` and you’re ready to go.
 To obtain the relation view of an included resource, you will need to implement `relation_view/1` that receive the relation name as an atom.
@@ -71,13 +71,13 @@ To obtain the relation view of an included resource, you will need to implement 
 - `render/4` Render the representation of a resource. It’s just a proxy for `view.render(data, query_config, conn)`
 - `included/4` With the QueryConfig, parse the data and call `data/4` on each resource. Takes all the rendered resources and put them in a list.
 
-## JsonapiKit.DataTransform
+## Solage.DataTransform
 
 The `DataTransform` module provides a quick and extensible way of encoding and decoding data keys. You could use it in a plug
 before using the params to replace "-" with "\_" on all keys. Or run it on the encoded data before sending the response.
 
-The decoder and encoder are set in the config `:jsonapi_kit, :decoder_formatter` and `:jsonapi_kit, :encoder_formatter`.
-Check the `JsonapiKit.DataTransform.Transformer` behaviour to implement your own.
+The decoder and encoder are set in the config `:solage, :decoder_formatter` and `:solage, :encoder_formatter`.
+Check the `Solage.DataTransform.Transformer` behaviour to implement your own.
 
 **Valid formatters:**
 
@@ -91,16 +91,16 @@ Check the `JsonapiKit.DataTransform.Transformer` behaviour to implement your own
 plug :deserialize_params
 
 defp deserialize_params(conn, _) do
-  %{conn | params: JsonapiKit.DataTransform.decode(conn.params)}
+  %{conn | params: Solage.DataTransform.decode(conn.params)}
 end
 ```
 
-## JsonapiKit.AttributeTransform
+## Solage.AttributeTransform
 
 The `AttributeTransform` module provides a clean and extensible way to transform a JSON API payload to a usable flat map like a regular REST API would accept.
 You can use the default resolver that assume that your relationship will be the name of the association + `_id` for *belongs\_to* and `_ids` for *has\_many*.
 
-But the interface could be implemented to support other kind of input. Check the `JsonapiKit.AttributeTransform.Transformer` behaviour to implement your own.
+But the interface could be implemented to support other kind of input. Check the `Solage.AttributeTransform.Transformer` behaviour to implement your own.
 
 ### Examples
 
@@ -111,7 +111,7 @@ params = {
   "relationships": {"user": {"data": {"id": 1}}}
 }
 
-JsonapiKit.AttributeTransform.flatten(params)
+Solage.AttributeTransform.flatten(params)
 # => {
 #      "person": {
 #        "first": "Jane",
@@ -155,16 +155,16 @@ end
 ```elixir
 def show(conn, _) do
   # Transform params key with the right format
-  conn = %{conn | params: JsonapiKit.DataTransform.decode(conn.params)}
+  conn = %{conn | params: Solage.DataTransform.decode(conn.params)}
 
   # Render the data value
-  data = JsonapiKit.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+  data = Solage.Serializer.render(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
 
   # Render the included value
-  included = JsonapiKit.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
+  included = Solage.Serializer.included(PostView, conn.assigns[:post], conn.assigns[:jsonapi_query], conn)
 
   # Encode the final body with the right format
-  body = JsonapiKit.DataTransform.encode(%{data: data, included: included})
+  body = Solage.DataTransform.encode(%{data: data, included: included})
 
   # Send the json response
   json(conn, 200, body)
