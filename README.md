@@ -1,4 +1,6 @@
-# <a href="https://github.com/simonprev/solage"><img src="https://cloud.githubusercontent.com/assets/464900/15801312/1cf60030-2a5f-11e6-8470-085779e78046.png" height="65"></a>
+<p>
+  <img src="https://cloud.githubusercontent.com/assets/464900/15801312/1cf60030-2a5f-11e6-8470-085779e78046.png" height="65" />
+</p>
 
 [![Travis](https://travis-ci.org/simonprev/solage.svg?style=flat-square)](https://travis-ci.org/simonprev/solage)
 
