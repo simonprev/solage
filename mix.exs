@@ -5,6 +5,7 @@ defmodule JsonapiKit.Mixfile do
     [app: :solage,
      version: "0.0.1",
      elixir: "~> 1.2",
+     package: package,
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      dialyzer: [plt_add_apps: [:plug]],
@@ -26,5 +27,12 @@ defmodule JsonapiKit.Mixfile do
       {:credo, "~> 0.3", only: [:dev, :test]},
       {:dialyxir, "~> 0.3.3", only: [:dev, :test]}
     ]
+  end
+
+  defp package do
+    [name: :solage,
+     maintainers: ["Simon Prévost"],
+     licenses: ["MIT"],
+     links: %{"GitHub" => "https://github.com/simonprev/solage"}]
   end
 end
