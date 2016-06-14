@@ -23,7 +23,7 @@ Add `solage` to the `deps` function in your project’s `mix.exs` file:
 defp deps do
   [
     …,
-    {:solage, "~> 0.1"}
+    {:solage, "> 0.0.0"}
   ]
 end
 ```
