@@ -18,6 +18,14 @@ defmodule Solage.QueryIncludeBuilder do
   iex> Solage.QueryIncludeBuilder.build("user,post", %Solage.QueryConfig{options: [allowed_includes: ~w(user)]})
   [:user]
 
+  # With always_includes includes option and empty param
+  iex> Solage.QueryIncludeBuilder.build("", %Solage.QueryConfig{options: [always_includes: ~w(user)]})
+  [:user]
+
+  # With always_includes includes option and nil param
+  iex> Solage.QueryIncludeBuilder.build(nil, %Solage.QueryConfig{options: [always_includes: ~w(user)]})
+  [:user]
+
   # With always includes option
   iex> Solage.QueryIncludeBuilder.build("user", %Solage.QueryConfig{options: [always_includes: ~w(post)]})
   [:user, :post]
@@ -34,11 +42,11 @@ defmodule Solage.QueryIncludeBuilder do
   @include_separator ","
   @nested_separator "."
 
-  def build(nil, _opts), do: []
-  def build("", _opts), do: []
+  def build(nil, config), do: build("", config)
   def build(param, config) do
     param
     |> String.split(@include_separator)
+    |> Enum.reject(fn(item) -> item == "" end)
     |> reject_unallowed_includes(config)
     |> add_always_includes(config)
     |> Enum.map(&handle_nested_include/1)
