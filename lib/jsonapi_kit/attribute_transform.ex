@@ -27,6 +27,28 @@ defmodule Solage.AttributeTransform do
     }
   }
 
+  iex> Solage.AttributeTransform.decode(%{
+  ...>   "type" => "post",
+  ...>   "id" => "10",
+  ...>   "attributes" => %{
+  ...>     "name" => "Testy"
+  ...>   },
+  ...>   "relationships" => %{
+  ...>     "user" => %{
+  ...>       "data" => %{
+  ...>         "id" => "1"
+  ...>       }
+  ...>     }
+  ...>   }
+  ...> })
+  %{
+    "post" => %{
+      "id" => "10",
+      "name" => "Testy",
+      "user_id" => "1"
+    }
+  }
+
   ```
   """
 
@@ -49,7 +71,7 @@ defmodule Solage.AttributeTransform do
     end)
 
     if (data["id"]) do
-      Map.put(new_data, :id, data["id"])
+      Map.put(new_data, "id", data["id"])
     else
       new_data
     end
