@@ -89,6 +89,7 @@ defmodule Solage.Serializer do
   """
   @spec render(atom, serializable, config, optional_conn) :: list
   def render(view, data, config, conn \\ nil)
+  def render(_view, nil, _config, _conn), do: []
   def render(view, data, config, conn) when is_map(data), do: [view.render(data, config, conn)]
   def render(view, data, config, conn) when is_list(data) do
     data
@@ -103,7 +104,9 @@ defmodule Solage.Serializer do
   in the `include` option.
   """
   @spec included(atom, serializable, config, optional_conn) :: list
-  def included(view, data, config, conn \\ nil) do
+  def included(view, data, config, conn \\ nil)
+  def included(_view, nil, _config, _conn), do: []
+  def included(view, data, config, conn) do
     config.include
     |> Enum.reduce(MapSet.new, fn(include, acc) ->
       view
@@ -111,20 +114,20 @@ defmodule Solage.Serializer do
       |> Enum.reduce(acc, &(MapSet.put(&2, &1)))
     end)
     |> MapSet.to_list
+    |> Enum.reject(& &1 == %{})
   end
 
+  defp handle_include(_view, nil, _attribute, _config, _conn), do: %{}
   defp handle_include(view, data, include, config, conn) when is_list(data) do
     data
     |> Enum.map(&(handle_include(view, &1, include, config, conn)))
     |> List.flatten
   end
-
   defp handle_include(view, data, {attribute, rest}, config, conn) do
     {new_data, new_view} = get_data_view(view, data, attribute)
 
     handle_include(new_view, new_data, rest, config, conn)
   end
-
   defp handle_include(view, data, attribute, config, conn) do
     {new_data, new_view} = get_data_view(view, data, attribute)
 
