@@ -56,7 +56,7 @@ defmodule Solage.QueryIncludeBuilder do
   defp handle_nested_include(key) do
     [item | path] = key
     |> String.split(@nested_separator)
-    |> Enum.map(&String.to_existing_atom/1)
+    |> Enum.map(&String.to_atom/1)
     |> Enum.reverse
 
     put_as_tree([], path, item)
