@@ -5,12 +5,12 @@ defmodule JsonapiKit.Mixfile do
     [app: :solage,
      version: "0.0.1",
      elixir: "~> 1.2",
-     package: package,
-     description: description,
+     package: package(),
+     description: description(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      dialyzer: [plt_add_apps: [:plug]],
-     deps: deps,
+     deps: deps(),
      docs: [extras: ["README.md"], main: "readme",
        source_url: "https://github.com/simonprev/solage"]
    ]
